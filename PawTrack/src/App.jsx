@@ -1,11 +1,12 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
+import Home  from './components/Home/Home';
 import SignupForm from './components/SignupForm/SignupForm';
 import SigninForm from './components/SigninForm/SigninForm';
-import PostList from './components/PostList/PostList'; // استيراد مكون PostList
+
+
 import * as authService from '../src/services/authService'; // import the authservice
 
 export const AuthedUserContext = createContext(null);
@@ -13,6 +14,8 @@ export const AuthedUserContext = createContext(null);
 // posts stuff
 import * as postService from './services/postService';
 import PostForm from './components/PostForm/PostForm';
+import PostList from './components/PostList/PostList';
+import PostDetails from './components/PostDetails/PostDetails';
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
@@ -23,7 +26,30 @@ const App = () => {
     authService.signout();
     setUser(null);
   };
+//===================================================================================
+//anything related to posts:
 
+ 
+ 
+useEffect(() => {
+  const fetchAllPosts = async () => {
+    if (!user) {
+      console.log("No user is currently signed in.");
+      return; 
+    }
+    try {
+      const postsData = await postService.index();
+      setPosts(postsData);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+  fetchAllPosts();
+}, [user]); // we added this so when another user sign in, use effect again because another user 
+
+
+
+//===================================================================================
   const handleAddPost = async (formData) => {
     try {
       const newPost = await postService.create(formData);
@@ -42,11 +68,14 @@ const App = () => {
         <Routes>
           {user ? (
             <>
-              <Route path="/" element={<Dashboard user={user} />} />
-              <Route path="/posts" element={<PostList posts={posts} />} /> {/* هذا هو المسار المضاف */}
+              <Route path="/" element={<Home user={user} />} />
+              <Route path="/posts" element={<PostList posts={posts} />} />
+              <Route path="/posts/:postId" element={<PostDetails />} />
+              <Route path="/posts" element={<PostList posts={posts} />} /> 
               <Route path="/posts/new" element={<PostForm handleAddPost={handleAddPost} />} />
             </>
           ) : (
+            //for visitor
             <Route path="/" element={<Landing />} />
           )}
           <Route path="/signup" element={<SignupForm setUser={setUser} />} />

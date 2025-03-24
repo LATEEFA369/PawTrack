@@ -1,17 +1,23 @@
 // components/PostList/PostList.jsx
-
-const PostList = ({ posts }) => {
-    return (
-      <div>
-        <h2>All Posts</h2>
-        <ul>
+import { Link } from 'react-router-dom';
+  const PostList = ({ posts }) => {
+      return (
+        <main>
           {posts.map((post) => (
-            <li key={post._id}>{post.title}</li>
+            <Link key={post._id} to={`/posts/${post._id}`}>
+              <article>
+                <header>
+                  <h2>{post.species}</h2>
+                  <p>Status: {post.status}</p>
+                  <p>Location: {post.location}</p>
+                </header>
+              </article>
+            </Link>
           ))}
-        </ul>
-      </div>
-    );
-  };
-  
-  export default PostList;
+        </main>
+      );
+    };
+    
+    export default PostList;
+    
   

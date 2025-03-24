@@ -10,17 +10,16 @@ const NavBar = ({ handleSignout }) => {
       {user ? (
         <nav>
           <ul>
-            <li>Welcome, {user.username}</li> {/* عنصر منفصل */}
+            <li>Welcome, {user.username}</li> 
+            <li><Link to="/">Home page</Link> </li>
+            <li><Link to='/posts'>Pets Posts</Link></li>
             <li>
-              <Link to="/">Dashboard</Link> {/* عنصر منفصل */}
-            </li>
-            <li>
-              <Link to="/posts/new">New Post</Link> {/* عنصر منفصل */}
+              <Link to="/posts/new">Add Post</Link> 
             </li>
             <li>
               <Link to="" onClick={handleSignout}>
                 Sign Out
-              </Link> {/* عنصر منفصل */}
+              </Link> 
             </li>
           </ul>
         </nav>
