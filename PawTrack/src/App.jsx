@@ -16,6 +16,7 @@ import * as postService from './services/postService';
 import PostForm from './components/PostForm/PostForm';
 import PostList from './components/PostList/PostList';
 import PostDetails from './components/PostDetails/PostDetails';
+import DM from './components/DirectMessage/DMForm';
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
@@ -72,6 +73,7 @@ useEffect(() => {
               <Route path="/posts" element={<PostList posts={posts} />} />
               <Route path="/posts/:postId" element={<PostDetails />} />
               <Route path="/posts" element={<PostList posts={posts} />} /> 
+              <Route path="/messages" element={<DM />} />
               <Route path="/posts/new" element={<PostForm handleAddPost={handleAddPost} />} />
             </>
           ) : (
