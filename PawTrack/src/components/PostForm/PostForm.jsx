@@ -37,97 +37,137 @@ const PostForm = (props) => {
   };
 
   return (
-    <main>
-      <form onSubmit={handleSubmit}>
-        <h1>{postId ? 'Edit Post' : 'New Post'}</h1>
+    <div className="container py-5">
+      <div className="card" style={{ maxWidth: '450px', width: '100%' }}>
+        <div className="card-body">
+          <form className="row g-3" onSubmit={handleSubmit}>
+            {/* Species Input */}
+            <div className="col-md-6">
+              <label htmlFor="species" className="form-label">Species</label>
+              <input
+                type="text"
+                className="form-control"
+                id="species"
+                name="species"
+                value={formData.species}
+                onChange={handleChange}
+                placeholder="Enter species (e.g., Dog, Cat)"
+              />
+            </div>
 
-        <label htmlFor="species-input">Species</label>
-        <input
-          required
-          type="text"
-          name="species"
-          id="species-input"
-          value={formData.species}
-          onChange={handleChange}
-        />
+            {/* Status Dropdown */}
+            <div className="col-md-6">
+              <label htmlFor="status" className="form-label">Status</label>
+              <select
+                id="status"
+                className="form-select"
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+              >
+                <option value="Lost">Lost</option>
+                <option value="Found">Found</option>
+                <option value="Adoption">Adoption</option>
+              </select>
+            </div>
 
-        <label htmlFor="status-input">Status</label>
-        <select
-          required
-          name="status"
-          id="status-input"
-          value={formData.status}
-          onChange={handleChange}
-        >
-          <option value="Lost">Lost</option>
-          <option value="Found">Found</option>
-          <option value="Adoption">Adoption</option>
-        </select>
+            {/* Gender Input (on first row) */}
+            <div className="col-12">
+              <label htmlFor="gender" className="form-label">Gender</label>
+              <select
+                id="gender"
+                className="form-select"
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+              >
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Unknown">Unknown</option>
+              </select>
+            </div>
 
-        <label htmlFor="location-input">Location</label>
-        <input
-          required
-          type="text"
-          name="location"
-          id="location-input"
-          value={formData.location}
-          onChange={handleChange}
-        />
+            {/* Age and Species on the same row */}
+            <div className="col-md-6">
+              <label htmlFor="age" className="form-label">Age</label>
+              <input
+                type="number"
+                className="form-control"
+                id="age"
+                name="age"
+                value={formData.age}
+                onChange={handleChange}
+                placeholder="Enter age (in years)"
+              />
+            </div>
 
-        <label htmlFor="details-input">Details</label>
-        <textarea
-          required
-          name="details"
-          id="details-input"
-          value={formData.details}
-          onChange={handleChange}
-        />
+            {/* Breed Input */}
+            <div className="col-md-6">
+              <label htmlFor="breed" className="form-label">Breed</label>
+              <input
+                type="text"
+                className="form-control"
+                id="breed"
+                name="breed"
+                value={formData.breed}
+                onChange={handleChange}
+                placeholder="Enter breed (if known)"
+              />
+            </div>
 
-        <label htmlFor="gender-input">Gender</label>
-        <select
-          required
-          name="gender"
-          id="gender-input"
-          value={formData.gender}
-          onChange={handleChange}
-        >
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Unknown">Unknown</option>
-        </select>
+            {/* Details Textarea */}
+            <div className="col-12">
+              <label htmlFor="details" className="form-label">Details</label>
+              <textarea
+                className="form-control"
+                id="details"
+                name="details"
+                value={formData.details}
+                onChange={handleChange}
+                placeholder="Provide more details about the animal"
+                rows="3"
+              />
+            </div>
 
-        <label htmlFor="contact-input">Contact</label>
-        <input
-          required
-          type="text"
-          name="contact"
-          id="contact-input"
-          value={formData.contact}
-          onChange={handleChange}
-        />
+            {/* Location Input */}
+            <div className="col-12">
+              <label htmlFor="location" className="form-label">Location</label>
+              <input
+                type="text"
+                className="form-control"
+                id="location"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="Enter the location where the animal was found/lost"
+              />
+            </div>
 
-        <label htmlFor="breed-input">Breed</label>
-        <input
-          type="text"
-          name="breed"
-          id="breed-input"
-          value={formData.breed}
-          onChange={handleChange}
-        />
+            {/* Contact Info Input */}
+            <div className="col-12">
+              <label htmlFor="contact" className="form-label">Contact Information</label>
+              <input
+                type="text"
+                className="form-control"
+                id="contact"
+                name="contact"
+                value={formData.contact}
+                onChange={handleChange}
+                placeholder="Your contact info (phone, email)"
+              />
+            </div>
 
-        <label htmlFor="age-input">Age</label>
-        <input
-          type="number"
-          name="age"
-          id="age-input"
-          value={formData.age}
-          onChange={handleChange}
-        />
-
-        <button type="submit">SUBMIT</button>
-      </form>
-    </main>
+            {/* Submit Button */}
+            <div className="col-12 text-center">
+              <button type="submit" className="btn btn-primary">Submit Post</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 
 export default PostForm;
+
+
