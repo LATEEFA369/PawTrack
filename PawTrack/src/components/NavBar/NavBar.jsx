@@ -13,7 +13,7 @@ const NavBar = ({ handleSignout }) => {
             <li>Welcome, {user.username}</li> 
             <li><Link to="/">Home page</Link> </li>
             <li><Link to='/posts'>Pets Posts</Link></li>
-            <li><Link to='/messages'>DM</Link></li>
+            <li><Link to={`/messages/${user._id}`}>DM</Link></li>
             <li>
               <Link to="/posts/new">Add Post</Link> 
             </li>

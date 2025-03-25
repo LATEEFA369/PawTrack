@@ -73,7 +73,7 @@ useEffect(() => {
               <Route path="/posts" element={<PostList posts={posts} />} />
               <Route path="/posts/:postId" element={<PostDetails />} />
               <Route path="/posts" element={<PostList posts={posts} />} /> 
-              <Route path="/messages" element={<DM />} />
+              <Route path="/messages/:receiverUserid" element={<DM />} />
               <Route path="/posts/new" element={<PostForm handleAddPost={handleAddPost} />} />
             </>
           ) : (
