@@ -2,172 +2,134 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as postService from '../../services/postService';
 
-const PostForm = (props) => {
+const PostDetails = (props) => {
   const { postId } = useParams();
-  const [formData, setFormData] = useState({
-    species: '',
-    status: 'Lost',
-    location: '',
-    details: '',
-    gender: 'Unknown',
-    contact: '',
-    breed: '',
-    age: 0,
-  });
+  const [post, setPost] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
       const postData = await postService.show(postId);
-      setFormData(postData);
+      setPost(postData);
     };
-    if (postId) fetchPost();
+    fetchPost();
   }, [postId]);
 
-  const handleChange = (evt) => {
-    setFormData({ ...formData, [evt.target.name]: evt.target.value });
-  };
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    if (postId) {
-      props.handleUpdatePost(postId, formData);
-    } else {
-      props.handleAddPost(formData);
-    }
-  };
+  if (!post)
+    return (
+      <main className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+        <div className="spinner-border text-primary" role="status" style={{ width: '5rem', height: '5rem' }}>
+          <span className="sr-only"></span>
+        </div>
+      </main>
+    );
 
   return (
-    <div className="container py-5">
-      <div className="card" style={{ maxWidth: '450px', width: '100%' }}>
-        <div className="card-body">
-          <form className="row g-3" onSubmit={handleSubmit}>
-            {/* Species Input */}
-            <div className="col-md-6">
-              <label htmlFor="species" className="form-label">Species</label>
-              <input
-                type="text"
-                className="form-control"
-                id="species"
-                name="species"
-                value={formData.species}
-                onChange={handleChange}
-                placeholder="Enter species (e.g., Dog, Cat)"
-              />
-            </div>
+    <main
+      className="d-flex justify-content-center align-items-start"
+      style={{
+        backgroundColor: '#f8f9fa',
+        paddingTop: '80px',
+        paddingBottom: '80px',
+        minHeight: '100vh',
+      }}
+    >
+      <div
+        className="card shadow-lg p-4"
+        style={{
+          width: '70%',
+          maxWidth: '800px',
+          borderRadius: '15px',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(5px)',
+          backgroundImage:
+            'url("https://media.istockphoto.com/id/1189999060/vector/animal-paw-seamless-pattern-stock-illustration.jpg?s=612x612&w=0&k=20&c=8PcXcUSFigk0kyxYXfcQ-D6XcNUy16TQbKjNGM2i66U=")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(255, 255, 255, 0.4)',
+            borderRadius: '15px',
+            zIndex: -1,
+          }}
+        ></div>
 
-            {/* Status Dropdown */}
-            <div className="col-md-6">
-              <label htmlFor="status" className="form-label">Status</label>
-              <select
-                id="status"
-                className="form-select"
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-              >
-                <option value="Lost">Lost</option>
-                <option value="Found">Found</option>
-                <option value="Adoption">Adoption</option>
-              </select>
-            </div>
+        <h1
+          className="mb-4 text-center text-gradient"
+          style={{
+            background: 'linear-gradient(45deg, #6a0dad, #9b4dca, #a74eae)',
+            WebkitBackgroundClip: 'text',
+            color: 'transparent',
+          }}
+        >
+          Post Details
+        </h1>
 
-            {/* Gender Input (on first row) */}
-            <div className="col-12">
-              <label htmlFor="gender" className="form-label">Gender</label>
-              <select
-                id="gender"
-                className="form-select"
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Unknown">Unknown</option>
-              </select>
-            </div>
+        <div className="mb-3">
+          <h4 className="fw-bold text-purple">Species:</h4>
+          <p>{post.species}</p>
+        </div>
 
-            {/* Age and Species on the same row */}
-            <div className="col-md-6">
-              <label htmlFor="age" className="form-label">Age</label>
-              <input
-                type="number"
-                className="form-control"
-                id="age"
-                name="age"
-                value={formData.age}
-                onChange={handleChange}
-                placeholder="Enter age (in years)"
-              />
-            </div>
+        <div className="mb-3">
+          <h4 className="fw-bold text-purple">Status:</h4>
+          <p>{post.status}</p>
+        </div>
 
-            {/* Breed Input */}
-            <div className="col-md-6">
-              <label htmlFor="breed" className="form-label">Breed</label>
-              <input
-                type="text"
-                className="form-control"
-                id="breed"
-                name="breed"
-                value={formData.breed}
-                onChange={handleChange}
-                placeholder="Enter breed (if known)"
-              />
-            </div>
+        <div className="mb-3">
+          <h4 className="fw-bold text-purple">Location:</h4>
+          <p>{post.location}</p>
+        </div>
 
-            {/* Details Textarea */}
-            <div className="col-12">
-              <label htmlFor="details" className="form-label">Details</label>
-              <textarea
-                className="form-control"
-                id="details"
-                name="details"
-                value={formData.details}
-                onChange={handleChange}
-                placeholder="Provide more details about the animal"
-                rows="3"
-              />
-            </div>
+        <div className="mb-3">
+          <h4 className="fw-bold text-purple">Details:</h4>
+          <p>{post.details}</p>
+        </div>
 
-            {/* Location Input */}
-            <div className="col-12">
-              <label htmlFor="location" className="form-label">Location</label>
-              <input
-                type="text"
-                className="form-control"
-                id="location"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                placeholder="Enter the location where the animal was found/lost"
-              />
-            </div>
+        <div className="mb-3">
+          <h4 className="fw-bold text-purple">Gender:</h4>
+          <p>{post.gender}</p>
+        </div>
 
-            {/* Contact Info Input */}
-            <div className="col-12">
-              <label htmlFor="contact" className="form-label">Contact Information</label>
-              <input
-                type="text"
-                className="form-control"
-                id="contact"
-                name="contact"
-                value={formData.contact}
-                onChange={handleChange}
-                placeholder="Your contact info (phone, email)"
-              />
-            </div>
+        <div className="mb-3">
+          <h4 className="fw-bold text-purple">Contact:</h4>
+          <p>{post.contact}</p>
+        </div>
 
-            {/* Submit Button */}
-            <div className="col-12 text-center">
-              <button type="submit" className="btn btn-primary">Submit Post</button>
-            </div>
-          </form>
+        <div className="mb-3">
+          <h4 className="fw-bold text-purple">Breed:</h4>
+          <p>{post.breed || 'N/A'}</p>
+        </div>
+
+        <div className="mb-3">
+          <h4 className="fw-bold text-purple">Age:</h4>
+          <p>{post.age || 'N/A'}</p>
+        </div>
+
+        <div className="text-center">
+          <button
+            onClick={() => props.handleDeletePost(post._id)}
+            className="btn btn-danger"
+            style={{
+              background: 'linear-gradient(45deg, #6a0dad, #9b4dca)',
+              color: 'white',
+            }}
+          >
+            Delete Post
+          </button>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
-export default PostForm;
+export default PostDetails;
+
 
 
