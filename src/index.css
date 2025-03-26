@@ -1,0 +1,19 @@
+
+
+.nav-link.custom-link {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #4b0082;
+  transition: color 0.3s ease;
+}
+
+.nav-link.custom-link:hover {
+  color: #6a0dad; 
+}
+
+.welcome-text {
+  color: #6a0dad;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
