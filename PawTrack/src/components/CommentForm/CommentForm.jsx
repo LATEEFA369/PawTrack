@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import * as postService from '../../services/postService';
 
 const CommentForm = (props) => {
-  const { postId } = props; // Get postId from props or context if available
+  const { postId,currentUser,handleAddComment} = props; // Get postId from props or context if available
   const [formData, setFormData] = useState({ text: '' });
 
   const handleChange = (evt) => {
@@ -11,13 +11,16 @@ const CommentForm = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    if (!props.currentUser) {
+      console.error("currentUser is undefined");
+    }
     // Add postId and author to the data being sent (assuming the author is already available)
     const commentData = {
       text: formData.text,
       postId, // Sending the postId to comment on the specific post
-      author: props.currentUser._id, // Assuming there's a currentUser prop holding the current user's data
+      author:currentUser._id, // Assuming there's a currentUser prop holding the current user's data
     };
-    props.handleAddComment(commentData); // Passing the data along with postId and author to the parent component
+    handleAddComment(commentData); // Passing the data along with postId and author to the parent component
     setFormData({ text: '' }); // Reset the form after submission
   };
 

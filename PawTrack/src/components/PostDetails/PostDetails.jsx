@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import { AuthedUserContext } from '../../App';
 import CommentForm from '../CommentForm/CommentForm';
 
+
 const PostDetails = (props) => {
   const nav = useNavigate();
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const user = useContext(AuthedUserContext);
+  const { currentUser } = props; 
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -106,7 +108,8 @@ const PostDetails = (props) => {
               }}>
                 <div className="card-body">
                   <h4 className="card-title">Leave a Comment</h4>
-                  <CommentForm handleAddComment={handleAddComment} />
+                  <CommentForm currentUser={currentUser} postId={postId} handleAddComment={handleAddComment} />
+                  {/* <CommentForm handleAddComment={handleAddComment} /> */}
                 </div>
               </div>
 

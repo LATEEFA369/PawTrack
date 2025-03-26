@@ -25,16 +25,6 @@ const NavBar = ({ handleSignout }) => {
               <Link className="nav-link custom-link" to="/">
                 Home
               </Link>
-    <>
-      {user ? (
-        <nav>
-          <ul>
-            <li>Welcome, {user.username}</li> 
-            <li><Link to="/">Home page</Link> </li>
-            <li><Link to='/posts'>Pets Posts</Link></li>
-            <li><Link to={`/messages/${user._id}`}>DM</Link></li>
-            <li>
-              <Link to="/posts/new">Add Post</Link> 
             </li>
             <li className="nav-item">
               <Link className="nav-link custom-link" to="/posts">
@@ -44,7 +34,7 @@ const NavBar = ({ handleSignout }) => {
             {user && (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link custom-link" to="/messages">
+                  <Link className="nav-link custom-link" to={`/messages/${user._id}`}>
                     DM
                   </Link>
                 </li>
@@ -74,22 +64,6 @@ const NavBar = ({ handleSignout }) => {
                 </li>
               </>
             )}
-            <li>
-              <Link to="" onClick={handleSignout}>
-                Sign Out
-              </Link> 
-            </li>
-          </ul>
-        </nav>
-      ) : (
-        <nav>
-          <ul>
-            <li>
-              <Link to="/signin">Sign In</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
           </ul>
 
           {user && (
@@ -100,11 +74,7 @@ const NavBar = ({ handleSignout }) => {
         </div>
       </div>
     </nav>
-        </nav>
-      )}
-    </>
   );
-};
 };
 
 export default NavBar;
