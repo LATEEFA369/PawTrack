@@ -37,6 +37,10 @@ const index = async () => {
       const res = await fetch(`${BASE_URL}/${receiverUserid}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
+      if (!res.ok) {
+        const errorText = await res.text(); // Log error response
+        throw new Error(`Error: ${res.status} - ${errorText}`);
+    }
       return res.json();
     } catch (error) {
       console.log(error);
