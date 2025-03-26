@@ -17,6 +17,9 @@ import PostForm from './components/PostForm/PostForm';
 import PostList from './components/PostList/PostList';
 import PostDetails from './components/PostDetails/PostDetails';
 import DM from './components/DirectMessage/DMForm';
+import Footer from './components/Footer/Footer';
+import Terms from './components/Terms/Term';
+import FAQ from './components/FAQ/FAQ';
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
@@ -75,6 +78,9 @@ useEffect(() => {
               <Route path="/posts" element={<PostList posts={posts} />} /> 
               <Route path="/messages" element={<DM />} />
               <Route path="/posts/new" element={<PostForm handleAddPost={handleAddPost} />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/terms" element={<Terms />} />
             </>
           ) : (
             //for visitor
@@ -83,6 +89,7 @@ useEffect(() => {
           <Route path="/signup" element={<SignupForm setUser={setUser} />} />
           <Route path="/signin" element={<SigninForm setUser={setUser} />} />
         </Routes>
+        <Footer user={user}/>
       </AuthedUserContext.Provider>
     </>
   );
