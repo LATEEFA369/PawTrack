@@ -1,12 +1,8 @@
-// import { Link } from 'react-router-dom';
-// import { AuthedUserContext } from '../../App';
-// import { useParams, useNavigate } from 'react-router-dom';
-// import { useState, useEffect, useContext} from 'react';
-// import * as DMservices from '../../services/messagesService';
+
 
 
 import { useState, useEffect} from 'react';
-import * as DMservices from '../../services/messagesService'; // assuming your message services are in this folder
+import * as DMservices from '../../services/messagesService'; 
 import { useNavigate ,useParams } from 'react-router-dom';
 
 const DM = () => {
@@ -17,7 +13,7 @@ const DM = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-   // Assuming you get these from the URL params
+  
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -35,7 +31,7 @@ const DM = () => {
     }
   }, [receiverUserId, postId]);
 
-  // Handle adding a message (similar to handleAddPost)
+ 
   const handleAddMessage = async (formData) => {
     setIsLoading(true);
     setError(null);
@@ -47,7 +43,7 @@ const DM = () => {
     try {
       if (receiverUserid && postid) {
         const newMessage = await DMservices.createMessage(receiverUserId, postId, formData);
-        setMessages((prevMessages) => [newMessage, ...prevMessages]); // Prepend the new message
+        setMessages((prevMessages) => [newMessage, ...prevMessages]); 
         setFormDm({ text: '' });
         navigate(`/messages/${receiverUserId}/${postId}`);
       } else {
@@ -61,35 +57,6 @@ const DM = () => {
   };
 
   
-  // const handleDeleteMessage = async (messageId) => {
-  //   setIsLoading(true);
-  //   setError(null);
-
-  //   try {
-  //     await DMservices.deleteMessage(messageId); 
-  //     setMessages(messages.filter((msg) => msg._id !== messageId)); 
-  //   } catch (err) {
-  //     setError('Failed to delete the message!');
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-
-  // const handleUpdateMessage = async (messageId, updatedText) => {
-  //   setIsLoading(true);
-  //   setError(null);
-
-  //   try {
-  //     const updatedMessage = await DMservices.updateMessage(messageId, updatedText); 
-  //     setMessages(messages.map((msg) => (msg._id === messageId ? updatedMessage : msg)));
-  //   } catch (err) {
-  //     setError('Failed to update the message!');
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
   return (
     <div>
       <form onSubmit={(e) => { e.preventDefault(); handleAddMessage(formDm); }}>
@@ -110,8 +77,6 @@ const DM = () => {
           messages.map((msg) => (
             <div key={msg._id}>
               <p>{msg.sender.username}: {msg.text}</p>
-              {/* <button onClick={() => handleDeleteMessage(msg._id)}>Delete</button>
-              <button onClick={() => handleUpdateMessage(msg._id, 'Updated message text')}>Update</button> */}
             </div>
           ))
         )}

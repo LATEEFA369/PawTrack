@@ -20,8 +20,8 @@ const index = async () => {
         return;
       }
 
-      console.log('BASE_URL:', BASE_URL); // Check if BASE_URL is correct
-      console.log('receiverUserid:', receiverUserId); // Check if receiverUserid is valid
+      console.log('BASE_URL:', BASE_URL); 
+      console.log('receiverUserid:', receiverUserId); 
        console.log('Message Data:', formDm); 
 
       const token = localStorage.getItem('token');
