@@ -12,6 +12,7 @@ export const AuthedUserContext = createContext(null);
 
 // posts stuff
 import * as postService from './services/postService';
+import * as messagesService from './services/messagesService'
 import PostForm from './components/PostForm/PostForm';
 import PostList from './components/PostList/PostList';
 import PostDetails from './components/PostDetails/PostDetails';
@@ -19,6 +20,7 @@ import DM from './components/DirectMessage/DMForm';
 import Footer from './components/Footer/Footer';
 import Terms from './components/Terms/Term';
 import FAQ from './components/FAQ/FAQ';
+import CommentForm from './components/CommentForm/CommentForm';
 
 const App = () => {
   const navigate = useNavigate();
@@ -79,8 +81,9 @@ const App = () => {
                 path="/posts/:postId/edit"
                 element={<PostForm handleUpdatePost={handleUpdatePost} />}
               />
-              <Route path="/messages/:receiverUserid" element={<DM />} />
+              <Route path="/messages/:receiverUserId/:postId" element={<DM />} />
               <Route path="/posts/new" element={<PostForm handleAddPost={handleAddPost} />} />
+              <Route path="/:postId/comments/:commentId" element={<CommentForm />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/terms" element={<Terms />} />
             </>

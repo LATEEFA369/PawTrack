@@ -34,11 +34,6 @@ const NavBar = ({ handleSignout }) => {
             {user && (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link custom-link" to={`/messages/${user._id}`}>
-                    DM
-                  </Link>
-                </li>
-                <li className="nav-item">
                   <Link className="nav-link custom-link" to="/posts/new">
                     Add Post
                   </Link>

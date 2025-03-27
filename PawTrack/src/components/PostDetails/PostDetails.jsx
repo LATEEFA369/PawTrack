@@ -39,6 +39,23 @@ const PostDetails = (props) => {
     }
   };
 
+  const handleEditComment = async (commentId, updatedText) => {
+    try {
+       await postService.updateComment(postId, commentId, { text: updatedText });
+  
+      setPost((prevPost) => ({
+        ...prevPost,
+        comments: prevPost.comments.map((comment) =>
+          comment._id === commentId ? handleEditComment: comment
+        ),
+      }));
+  
+      setEditingComment(null); // Exit edit mode
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+  };
+
   const handleUpdateImage = async () => {
     try {
       const updatedPost = await postService.updateImage(postId, newImageUrl);
@@ -58,10 +75,10 @@ const PostDetails = (props) => {
     }
   };
 
-  const confirmDeletePost = () => {
-    props.handleDeletePost(post._id);
-    setShowModal(false);
+  const handleDMClick = (receiverUserid, postid) => {
+    nav(`/messages/${receiverUserid}/${postid}`);
   };
+
 
   if (!post)
     return (
@@ -91,12 +108,20 @@ const PostDetails = (props) => {
 
               {post.author && user && post.author._id === user._id && (
                 <div className="mt-3">
-                  <Link to={`/posts/${post._id}/edit`} className="btn btn-primary" style={{ backgroundColor: '#6a0dad', borderColor: '#6a0dad' }}>Edit</Link>
+        
                   <button onClick={() => setShowModal(true)} className="btn btn-primary" style={{ backgroundColor: '#6a0dad', borderColor: '#6a0dad', marginLeft: '10px' }}>Delete</button>
                 </div>
               )}
             </div>
           </div>
+          <button 
+             onClick={() => handleDMClick(post.author._id, post._id)} 
+             className="btn btn-primary mt-3"
+            style={{ backgroundColor: '#6a0dad', borderColor: '#6a0dad' }}
+            >
+             DM
+            </button>
+          {/* <Link to={`/messages/${post.author._id}`} className="btn btn-primary mt-3" style={{ backgroundColor: '#6a0dad', borderColor: '#6a0dad' }}>DM</Link> */}
           <Link to="/posts" className="btn btn-primary mt-3" style={{ backgroundColor: '#6a0dad', borderColor: '#6a0dad' }}>Back to Posts</Link>
         </div>
 
@@ -120,36 +145,91 @@ const PostDetails = (props) => {
       </div>
 
       <div className="row mt-4">
-        <div className="col-lg-12">
-          <div className="card shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: '15px', padding: '20px' }}>
-            <div className="card-body">
-              <h2>Comments</h2>
-              <div className="card mb-3">
-                <div className="card-body">
-                  <h4 className="card-title">Leave a Comment</h4>
-                  <CommentForm currentUser={currentUser} postId={postId} handleAddComment={handleAddComment} />
-                  {/* <CommentForm handleAddComment={handleAddComment} /> */}
-                </div>
-              </div>
+  <div className="col-lg-12">
+    <div
+      className="card shadow-lg"
+      style={{
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        borderRadius: "15px",
+        padding: "20px",
+      }}
+    >
+      <div className="card-body">
+        <h2 style={{ 
+          background: 'linear-gradient(45deg, #6a0dad, #9b4dca)', 
+          WebkitBackgroundClip: 'text', 
+          color: 'transparent' 
+        }}>Comments</h2>
 
-              {post.comments.length === 0 && <p>There are no comments yet.</p>}
-              {post.comments.map((comment) => (
-                <div key={comment._id} className="comment-container mb-4">
-                  <div className="card shadow-sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: '15px', padding: '15px' }}>
-                    <div className="card-body">
-                      <p><strong>{comment.author.username}</strong> posted on {new Date(comment.createdAt).toLocaleDateString()}</p>
-                      <p>{comment.text}</p>
-                      {comment.author._id === user._id && (
-                        <button onClick={() => handleDeleteComment(comment._id)} className="btn btn-primary btn-sm" style={{ backgroundColor: '#6a0dad', borderColor: '#6a0dad' }}>Delete</button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div className="card mb-3 shadow-sm" 
+          style={{
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            borderRadius: "15px",
+            padding: "20px",
+          }}>
+          <div className="card-body">
+            <h4 className="card-title">Leave a Comment</h4>
+            <CommentForm currentUser={user} postId={postId} handleAddComment={handleAddComment} />
           </div>
         </div>
+
+        {post.comments.length === 0 && <p>No comments yet.</p>}
+
+        {post.comments.map((comment) => (
+          <div key={comment._id} className="mb-4">
+            <div
+              className="card shadow-lg"
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
+                borderRadius: "15px",
+                padding: "20px",
+              }}
+            >
+              <div className="card-body">
+                <p>
+                  <strong>{comment.author.username}</strong> posted on{" "}
+                  {new Date(comment.createdAt).toLocaleDateString()}
+                </p>
+                <p>{comment.text}</p>
+
+                {comment.author._id === user._id && (
+                  <div className="mt-2">
+                    <button
+                      onClick={() => handleDeleteComment(comment._id)}
+                      className="btn btn-danger btn-sm"
+                      style={{
+                        backgroundColor: "#d9534f",
+                        borderColor: "#d43f3a",
+                        marginRight: "10px",
+                      }}
+                    >
+                      Delete
+                    </button>
+
+                    {/* Edit Button */}
+                    <Link to={`/posts/${postId}/comments/${comment._id}/edit`}
+                
+                    
+                      className="btn btn-primary btn-sm"
+                      style={{
+                        backgroundColor: "#6a0dad",
+                        borderColor: "#6a0dad",
+                      }}
+                      onClick={() => handleEditComment(comment)}
+                    >
+                      Edit
+                 
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
+    </div>
+  </div>
+</div>
     </main>
   );
 };
