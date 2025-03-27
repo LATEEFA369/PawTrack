@@ -84,8 +84,11 @@ const PostDetails = (props) => {
               {post.author && <p><strong>Posted by:</strong> {post.author.username}</p>}
               <p><strong>Status:</strong> {post.status}</p>
               <p><strong>Location:</strong> {post.location}</p>
+              
+             <p><strong>Gender:</strong> {post.gender}</p>
+              <p><strong>Breed:</strong> {post.breed}</p>
+              <p><strong>Age:</strong> {post.age}</p>
               <p><strong>Details:</strong> {post.details}</p>
-              <p><strong>Gender:</strong> {post.gender}</p>
               <p><strong>Contact:</strong> {post.contact}</p>
 
               {post.author && user && post.author._id === user._id && (

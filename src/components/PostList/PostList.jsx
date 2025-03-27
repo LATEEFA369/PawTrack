@@ -1,54 +1,30 @@
-// components/PostList/PostList.jsx
 import { Link } from 'react-router-dom';
+import './PostList.css'; 
 
 const PostList = ({ posts }) => {
   return (
-    <main
-      className="d-flex flex-column align-items-center"
-      style={{
-        backgroundColor: "#f8f9fa",
-        paddingTop: "80px",
-        paddingBottom: "80px",
-        minHeight: '100vh',
-      }}
-    >
+    <main className="d-flex flex-column align-items-center post-list-container">
       {posts.map((post) => (
         <Link
           key={post._id}
           to={`/posts/${post._id}`}
-          style={{
-            width: '80%',
-            maxWidth: '800px',
-            textDecoration: 'none',
-            marginBottom: '20px',
-          }}
+          className="post-link"
         >
-          <article
-            className="card shadow-lg p-4"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.8)',
-              backdropFilter: 'blur(5px)',
-              borderRadius: '15px',
-              padding: '20px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <header>
-              <h2
-                className="text-center mb-3"
-                style={{
-                  background: 'linear-gradient(45deg, #6a0dad, #9b4dca)',
-                  WebkitBackgroundClip: 'text',
-                  color: 'transparent',
-                }}
-              >
-                {post.species}
-              </h2>
-              <p className="fw-bold">Status: {post.status}</p>
-              <p className="fw-bold">Location: {post.location}</p>
-            </header>
+          <article className="post-card">
+            <h2 className="post-header">
+              {post.species} is {post.status} in {post.location}
+            </h2>
+            <div className="post-image-container">
+              <img
+                src={post.img || 'https://via.placeholder.com/600x400'}
+                className="post-image"
+                alt={post.species}
+              />
+            </div>
+            <p className="post-author">{post.author.username}</p>
+            <p className="post-date">
+              Posted on: {new Date(post.createdAt).toLocaleDateString()}
+            </p>
           </article>
         </Link>
       ))}
@@ -57,6 +33,3 @@ const PostList = ({ posts }) => {
 };
 
 export default PostList;
-
-    
-  

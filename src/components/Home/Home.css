@@ -1,0 +1,114 @@
+/* Home.css */
+
+.hero-section {
+    background: linear-gradient(135deg, rgb(210, 141, 240), rgb(210, 176, 224));
+    padding: 50px 0;
+    text-align: center;
+  }
+  
+  .hero-header {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hero-description {
+    font-size: 1.2rem;
+    max-width: 75%;
+    margin: 0 auto;
+    color: white;
+  }
+  
+  .motivational-text {
+    font-size: 1.1rem;
+    color: #6a0dad;
+    margin-top: 20px;
+    font-weight: bold;
+    max-width: 75%;
+    margin: 0 auto;
+  }
+  
+  .hero-btn {
+    padding: 10px 30px;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+    border-radius: 30px;
+    background-color: #d3d3d3; 
+  }
+  
+  .hero-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Supporting Section */
+  .supporting-header {
+    font-size: 1.8rem;
+    color: #6a0dad;
+    font-weight: bold;
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  /* Mission Section */
+  .mission-header {
+    font-size: 2rem;
+    color: #6a0dad;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+  
+  .mission-text {
+    font-size: 1.2rem;
+    color: #444;
+    max-width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  
+  .more-info-btn {
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    background-color: #6a0dad;
+    color: white;
+    border-radius: 30px;
+    text-transform: uppercase;
+    transition: transform 0.3s ease;
+  }
+  
+  .more-info-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Image Section */
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .hero-header {
+      font-size: 2rem;
+    }
+    .hero-description {
+      font-size: 1rem;
+    }
+  }
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image{
+    
+    width: 200px; 
+    height: 200px; 
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  

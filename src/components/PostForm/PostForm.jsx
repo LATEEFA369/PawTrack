@@ -15,7 +15,7 @@ const PostForm = (props) => {
     contact: '',
     breed: '',
     age: 0,
-    img: '', // حقل الصورة URL
+    img: '', 
   });
 
   useEffect(() => {
@@ -115,7 +115,7 @@ const PostForm = (props) => {
             >
               <option value="Lost">Lost</option>
               <option value="Found">Found</option>
-              <option value="Adoption">Adoption</option>
+              <option value="Adoptable">Adoptable</option>
             </select>
           </div>
 
