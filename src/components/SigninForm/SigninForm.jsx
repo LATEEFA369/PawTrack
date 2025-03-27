@@ -76,7 +76,7 @@ const SigninForm = (props) => {
             color: "transparent",
           }}
         >
-          Sgin In
+          Sign In
         </h1>
 
         <p className="text-center text-danger">{message}</p>
